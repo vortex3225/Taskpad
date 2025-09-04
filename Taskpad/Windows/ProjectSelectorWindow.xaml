@@ -1,0 +1,22 @@
+﻿<Window x:Class="Taskpad.Windows.ProjectSelectorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Taskpad.Windows"
+        WindowStyle="None"
+        mc:Ignorable="d"
+        Title="Select a project" Height="250" Width="350">
+    <Viewbox Stretch="Uniform">
+        <Grid Width="394" Height="223">
+            <StackPanel Orientation="Horizontal" Margin="10,10,10,183">
+                <TextBlock FontFamily="Arial" FontSize="19" Height="21">Project:</TextBlock>
+                <ComboBox x:Name="project_combo" DropDownClosed="project_combo_DropDownClosed" FontFamily="Arial" FontSize="18.5" Margin="10,0" Width="277" Height="23"/>
+            </StackPanel>
+            <StackPanel Margin="10,63,10,19">
+                <Button x:Name="accept_btn" FontFamily="Arial"  FontSize="25" IsDefault="True" Click="accept_btn_Click" Background="Green" Height="47">Select</Button>
+                <Button x:Name="cancel_btn" FontFamily="Arial" FontSize="24.5" IsCancel="True" Click="cancel_btn_Click" Background="Red" Height="45" Margin="0, 10, 0, 0">Cancel</Button>
+            </StackPanel>
+        </Grid>
+    </Viewbox>
+</Window>

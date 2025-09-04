@@ -1,0 +1,131 @@
+﻿<Window x:Class="Taskpad.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Taskpad"
+        mc:Ignorable="d"
+        Title="Taskpad" Icon="/Sprites/taskpad.ico" Height="450" Width="500">
+    <Window.Resources>
+        <DataTemplate x:Key="CheckedCell">
+            <StackPanel Orientation="Horizontal">
+                <CheckBox IsChecked="{Binding Completed, Mode=TwoWay}" Tag="{Binding Name}"
+                          Click="CheckBox_Click"
+                />
+            </StackPanel>
+        </DataTemplate>
+    </Window.Resources>
+    <DockPanel x:Name="topbar_dockpanel" LastChildFill="False">
+        <Menu DockPanel.Dock="Top" Background="{StaticResource WindowBackgroundBrush}">
+            <MenuItem Header="File">
+                <MenuItem x:Name="new_project_mbtn" Header="New Project" Click="new_project_mbtn_Click">
+                    <MenuItem.Icon>
+                        <Image Source="/Sprites/project_add.ico"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="open_task_mbtn" Header="Open" Click="open_task_mbtn_Click">
+                    <MenuItem.Icon>
+                        <Image Source="/Sprites/open_project.ico"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="save_task_mbtn" Header="Save" Click="save_task_mbtn_Click">
+                    <MenuItem.Icon>
+                        <Image Source="/Sprites/task.ico"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="saveas_task_mbtn" Header="Save As" Click="saveas_task_mbtn_Click">
+                    <MenuItem.Icon>
+                        <Image Source="/Sprites/save_as.ico"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="import_task_mbtn" Header="Import" Click="import_task_mbtn_Click">
+                    <MenuItem.Icon>
+                        <Image Source="/Sprites/import.ico"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="export_task_mbtn" Header="Export As" Click="export_task_mbtn_Click">
+                    <MenuItem.Icon>
+                        <Image Source="/Sprites/export.ico"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="deleteproject_mbtn" Header="Delete Project" Click="deleteproject_mbtn_Click">
+                    <MenuItem.Icon>
+                        <Image Source="/Sprites/delete_project.ico"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="clear_opened_project_mbtn" Header="Close Opened Project" Click="clear_opened_project_mbtn_Click">
+                    <MenuItem.Icon>
+                        <Image Source="/Sprites/clear.ico"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="exit_task_mbtn" Header="Exit" Click="exit_task_mbtn_Click">
+                    <MenuItem.Icon>
+                        <Image Source="/Sprites/exit.ico"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="Edit">
+                <MenuItem x:Name="undo_edit_mbtn" Header="Undo" Click="undo_edit_mbtn_Click">
+                    <MenuItem.Icon>
+                        <Image Source="/Sprites/undo.ico"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="redo_edit_mbtn" Header="Redo" Click="redo_edit_mbtn_Click">
+                    <MenuItem.Icon>
+                        <Image Source="/Sprites/redo.ico"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="selectall_edit_mbtn" Header="Select All" Click="selectall_edit_mbtn_Click">
+                    <MenuItem.Icon>
+                        <Image Source="/Sprites/selectall.ico"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="edittask_edit_mbtn" Header="Edit Task" Click="edittask_edit_mbtn_Click">
+                    <MenuItem.Icon>
+                        <Image Source="/Sprites/task_edit.ico"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="deletetask_edit_mbtn" Header="Delete Task" Click="deletetask_edit_mbtn_Click">
+                    <MenuItem.Icon>
+                        <Image Source="/Sprites/task_delete.ico"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="preferences_edit_mbtn" Header="Preferences" Click="preferences_edit_mbtn_Click">
+                    <MenuItem.Icon>
+                        <Image Source="/Sprites/preferences.ico"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem x:Name="help_mbtn" Header="Help" Click="help_mbtn_Click"/>
+        </Menu>
+        <Viewbox Stretch="Uniform">
+            <Grid Width="379" Height="315">
+                <StackPanel Margin="10,8,10,290" Orientation="Horizontal">
+                    <Button x:Name="new_task_btn" Width="75" Height="16" Click="new_task_btn_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="20" Height="13" Source="/Sprites/task_add.ico"/>
+                            <TextBlock Text="New Task" Margin="5, 0, 0, 0" TextAlignment="Center" FontSize="10" FontFamily="Arial" Height="12"/>
+                        </StackPanel>
+                    </Button>
+                    <TextBox x:Name="task_namebox" Margin="10, 0, 0, 0" FontFamily="Arial" FontSize="8.5" TextChanged="task_namebox_TextChanged" Width="270" Height="13"/>
+                </StackPanel>
+                <TextBlock x:Name="task_warningbox" FontFamily="Arial" Visibility="Hidden" Foreground="Orange" TextAlignment="Center" FontSize="7.5" Text="error" Margin="10,25,10,279"/>
+                <ListView x:Name="tasks_list" Margin="10,36,10,44">
+                    <ListView.View>
+                        <GridView AllowsColumnReorder="False">
+                            <GridViewColumn x:Name="checkbox_cell" Header=" " Width="30" CellTemplate="{StaticResource CheckedCell}"/>
+                            <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="180"/>
+                            <GridViewColumn Header="Due Date" DisplayMemberBinding="{Binding DueDate}" Width="70"/>
+                            <GridViewColumn Header="Priority" DisplayMemberBinding="{Binding Priority}" Width="60"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <TextBlock x:Name="warning_display" FontFamily="Arial" Visibility="Hidden" FontWeight="Bold" FontSize="7.5" Foreground="Orange" Text="0 unsaved changes!" Margin="10,276,10,29"/>
+                <StackPanel x:Name="progress_grid" Margin="10,283,10,3">
+                    <TextBlock x:Name="task_progress_display" Text="0 tasks pending, 0 completed" Margin="0, 5, 0, 0" FontFamily="Arial" FontSize="8.5" Height="10"/>
+                    <ProgressBar x:Name="tasks_progress_bar" Minimum="0" Maximum="100" Height="10"/>
+                </StackPanel>
+            </Grid>
+        </Viewbox>
+    </DockPanel>
+</Window>

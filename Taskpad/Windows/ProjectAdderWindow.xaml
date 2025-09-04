@@ -1,0 +1,24 @@
+﻿<Window x:Class="Taskpad.Windows.ProjectAdderWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Taskpad.Windows"
+        mc:Ignorable="d"
+        Title="Add a new project..." Height="450" Width="550">
+    <Viewbox Stretch="Uniform">
+        <Grid Width="350" Height="250">
+            <StackPanel x:Name="project_name_panel" Orientation="Horizontal" Margin="0,0,0,228">
+                <TextBlock Text="New project name:" FontFamily="Arial" FontSize="13" Height="15"/>
+                <TextBox x:Name="project_namebox" TextChanged="project_namebox_TextChanged" Margin="10, 0, 0, 0" FontFamily="Arial" FontSize="10" Width="228" Height="18"/>
+            </StackPanel>
+            <TextBlock x:Name="err_display" Visibility="Visible" IsVisibleChanged="err_display_IsVisibleChanged" Text="Name cannot be empty!" FontFamily="Arial" FontSize="10" Foreground="Orange" Margin="0,22,0,213"/>
+            <StackPanel Orientation="Horizontal"  Margin="0,37,0,194">
+                <TextBlock Text="Tasks:" FontFamily="Arial" FontSize="13" Height="16"/>
+                <RadioButton x:Name="copy_radio_btn" Click="copy_radio_btn_Click" FontFamily="Arial" Margin="10, 0, 0, 0" FontSize="9.5" Height="14">Copy from existing project</RadioButton>
+                <RadioButton x:Name="new_radio_btn" IsChecked="True" Click="new_radio_btn_Click" FontFamily="Arial" FontSize="9.5" Margin="10, 0, 0, 0" Height="14">Create a new task list</RadioButton>
+            </StackPanel>
+            <Frame x:Name="task_adder_frame" NavigationUIVisibility="Hidden" Margin="0,56,0,0"/>
+        </Grid>
+    </Viewbox>
+</Window>
